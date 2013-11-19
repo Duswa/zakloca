@@ -1,0 +1,39 @@
+﻿ENGLISH
+Instructions for installation on a Linux environment:
+
+-Check the correct installation of the packages -with all dependencies- needed to execute Apache Tomcat.
+-Check that Tomcat server is up and running.
+-Default database is now H2 in embedded mode, which means that the server starts and stops itself with the webapp, so you just have to copy the DB file (locanda.h2.db) from the archive root to a folder of your choice. Default, defined in the {url} tag in META-INF/context.xml, is /opt/h2/databases. In context.xml you can also change the DB credentials if you want (default are locanda:locanda). However, keep in mind that the embedded DB is accessible only from the same java process of the webapp, so it runs in a quite safe environment.
+-The H2 web interface is available at http://localhost:11111
+
+-The application is packaged into a .WAR archive, in the folder "Linux". You can easily deploy it with the Tomcat manager webapp, at the URL "http://localhost:8080/manager"
+-Copy the "solr" folder of the archive to any place in your file system
+-In the Tomcat webapp WEB-INF folder, open the "applicationContext.xml" file and edit the two paths in the tag:
+	<bean id="multiCoreContainer" class="org.apache.solr.core.CoreContainer">
+by substituting the label {solr.path} with the absolute path where you copied the "solr" folder to.
+
+-The application is now available at the URL "http://localhost:8080/locanda".
+ 
+*If you want to use MySQL, you need to change the JDBC driver in META-INF/context.xml and set the proper credentials. Then just import the locanda database (an empty locanda schema must be previously created) from "locanda.sql" placed in the archive root
+
+
+
+ITALIANO
+Istruzioni per l'installazione in ambiente Linux:
+
+-Assicurarsi di avere nel sistema i pacchetti, con tutte le dipendenze, necessari ad eseguire Apache Tomcat.
+-Assicurarsi che il server Tomcat sia avviato correttamente.
+
+-Il database di default è ora H2, in modalità embedded. Questo significa che il server parte e si ferma assieme alla webapp, quindi è sufficiente copiare il file del DB (locanda.h2.db) presente nella root dell'archivio in una cartella a scelta. Di default il path, impostato nel tag {url} del file META-INF/context.xml, è /opt/h2/databases. Nel file context.xml si possono anche cambiare le credenziali di accesso al db (di default sono locanda:locanda). E' opportuno ricordare però che il DB embedded è accessibile solo dal processo java della webapp, quindi gira in un ambiente sicuro.
+-L'interfaccia web di H2 è disponibile all'indirizzo http://localhost:11111
+
+-Viene fornito un archivio .war, all'interno della sottocartella "Linux", facilmente deployabile con l'applicazione "manager" di Tomcat, all'indirizzo "http://localhost:8080/manager".
+
+-Copiare la cartella "solr" dell'archivio in una qualsiasi locazione del file system
+-Nella cartella WEB-INF della webapp, aprire il file "applicationContext.xml" e modificare i due percorsi nel tag:
+	<bean id="multiCoreContainer" class="org.apache.solr.core.CoreContainer">
+sostituendo l'etichetta {solr.path} con il path assoluto in cui hai copiato la cartella "solr".
+
+-Basta ora puntare il browser all'indirizzo "http://localhost:8080/locanda" per accedere all'applicazione.
+
+*Se si vuole utilizzare MySQL, è necessario modificare il driver e le credenziali di accesso in META-INF/context.xml. Poi creare un database "locanda" ed importare lo schema ed i dati usando il file "locanda.sql" nella root dell'archivio.
